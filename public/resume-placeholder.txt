@@ -1,0 +1,1 @@
+Replace this file with your real resume PDF and update the resume URL in src/data/site.ts.
