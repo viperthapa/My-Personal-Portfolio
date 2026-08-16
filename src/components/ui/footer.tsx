@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BriefcaseBusiness, Code2, Mail, MapPin } from "lucide-react";
 import { siteConfig } from "@/data/site";
+import { VisitorCounter } from "@/components/ui/visitor-counter";
 
 export function Footer() {
   return (
@@ -11,12 +12,13 @@ export function Footer() {
             <Code2 className="text-brand-600 dark:text-accent-400" /> {siteConfig.name}
           </div>
           <p className="mt-4 max-w-sm text-sm leading-6 text-slate-600 dark:text-slate-400">{siteConfig.intro}</p>
-          <div className="mt-5 flex gap-3">
+           <div className="mt-5 flex gap-3">
             <a href={siteConfig.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="rounded-lg border border-slate-200 p-2 dark:border-slate-800"><Code2 size={17} /></a>
             <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="rounded-lg border border-slate-200 p-2 dark:border-slate-800"><BriefcaseBusiness size={17} /></a>
-            <a href={`mailto:${siteConfig.email}`} aria-label="Email" className="rounded-lg border border-slate-200 p-2 dark:border-slate-800"><Mail size={17} /></a>
-          </div>
-        </div>
+             <a href={`mailto:${siteConfig.email}`} aria-label="Email" className="rounded-lg border border-slate-200 p-2 dark:border-slate-800"><Mail size={17} /></a>
+           </div>
+           <VisitorCounter />
+         </div>
 
         <div>
           <p className="font-bold text-slate-950 dark:text-white">Explore</p>

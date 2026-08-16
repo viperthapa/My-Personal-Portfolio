@@ -21,6 +21,11 @@ export type BSDateParts = {
   day: number;
 };
 
+export type BSObservance = {
+  name: string;
+  note: string;
+};
+
 const DAY_MS = 86_400_000;
 
 function pad(value: number) {
@@ -39,6 +44,25 @@ export function formatAD(date: Date) {
 
 export function formatBS(parts: BSDateParts) {
   return `${parts.year} ${BS_MONTHS[parts.month - 1]} ${parts.day}`;
+}
+
+export function getBSObservances(bs: BSDateParts, ad: Date): BSObservance[] {
+  const fixedBS: Record<string, BSObservance> = {
+    "1-1": { name: "Nepali New Year", note: "First day of Bikram Sambat year" },
+    "2-15": { name: "Republic Day", note: "Nepal became a federal democratic republic in 2008" },
+    "6-3": { name: "Constitution Day", note: "Constitution of Nepal was promulgated in 2015" },
+    "8-27": { name: "Prithvi Jayanti", note: "Birth anniversary of Prithvi Narayan Shah" },
+    "11-7": { name: "Democracy Day", note: "Marks the end of the Rana regime in 1951" },
+  };
+  const observances = fixedBS[`${bs.month}-${bs.day}`] ? [fixedBS[`${bs.month}-${bs.day}`]] : [];
+  const fixedAD: Record<string, BSObservance> = {
+    "1-1": { name: "English New Year", note: "First day of Gregorian calendar year" },
+    "5-1": { name: "International Workers' Day", note: "Also known as Labour Day" },
+    "12-25": { name: "Christmas Day", note: "Christian festival observed on 25 December" },
+  };
+  const gregorian = fixedAD[`${ad.getUTCMonth() + 1}-${ad.getUTCDate()}`];
+  if (gregorian) observances.push(gregorian);
+  return observances;
 }
 
 export function adToBSParts(date: Date): BSDateParts | null {
@@ -105,6 +129,6 @@ export function buildBSMonth(year: number, month: number) {
   return {
     monthName: BS_MONTHS[month - 1],
     startWeekday: cells[0].ad.getUTCDay(),
-    cells,
+    cells: cells.map((cell) => ({ ...cell, observances: getBSObservances(cell.bs, cell.ad) })),
   };
 }

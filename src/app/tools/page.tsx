@@ -16,7 +16,7 @@ export default function ToolsPage() {
           <div className="relative max-w-3xl">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-[#62d6d0]">Tools hub</p>
             <h1 className="mt-3 text-5xl font-black tracking-[-0.04em] sm:text-6xl">Useful tools. Zero complexity.</h1>
-            <p className="mt-6 text-lg leading-8 text-sky-100">A starter library of 17 browser-based utilities: six developer tools, six everyday calculators and five Nepal-focused date utilities.</p>
+            <p className="mt-6 text-lg leading-8 text-sky-100">A starter library of 14 browser-based utilities: six developer tools, three everyday calculators and five Nepal-focused date utilities.</p>
           </div>
         </div>
 

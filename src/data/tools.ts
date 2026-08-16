@@ -56,7 +56,7 @@ export const tools: ToolDefinition[] = [
     keywords: ["uuid", "guid", "identifier", "generator"],
   },
 
-  // Calculators — 6
+  // Calculators — 3
   {
     slug: "emi-calculator",
     name: "EMI Calculator",
@@ -78,27 +78,6 @@ export const tools: ToolDefinition[] = [
     category: "Calculators",
     description: "Calculate age in years, months and days from a date of birth.",
     keywords: ["age", "birthday", "date"],
-  },
-  {
-    slug: "simple-interest",
-    name: "Simple Interest Calculator",
-    category: "Calculators",
-    description: "Calculate simple interest and maturity amount from principal, rate and time.",
-    keywords: ["simple interest", "finance", "principal"],
-  },
-  {
-    slug: "compound-interest",
-    name: "Compound Interest Calculator",
-    category: "Calculators",
-    description: "Estimate compound growth with configurable compounding frequency.",
-    keywords: ["compound interest", "investment", "growth"],
-  },
-  {
-    slug: "discount-calculator",
-    name: "Discount Calculator",
-    category: "Calculators",
-    description: "Find the discounted price, amount saved and effective discount rate.",
-    keywords: ["discount", "sale", "price", "savings"],
   },
 
   // Nepal — 6

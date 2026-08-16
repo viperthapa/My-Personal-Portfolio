@@ -218,33 +218,8 @@ function AgeCalculator() {
   return <Panel title="Age calculator"><div className="grid gap-5 md:grid-cols-[0.8fr_1.2fr]"><label className="tool-label">Date of birth<input type="date" className="tool-input" value={dob} onChange={(e) => setDob(e.target.value)} /></label><div>{age ? <div className="grid gap-3 sm:grid-cols-3"><Result label="Years" value={String(age.years)} /><Result label="Months" value={String(age.months)} /><Result label="Days" value={String(age.days)} /></div> : <ErrorBox message="Please select a valid birth date that is not in the future." />}</div></div></Panel>;
 }
 
-function SimpleInterest() {
-  const [p, setP] = useState(100000);
-  const [r, setR] = useState(8);
-  const [t, setT] = useState(3);
-  const interest = p * r * t / 100;
-  return <Panel title="Simple interest"><div className="grid gap-5 lg:grid-cols-2"><div className="grid gap-4"><label className="tool-label">Principal<input type="number" className="tool-input" value={p} onChange={(e) => setP(Number(e.target.value))} /></label><label className="tool-label">Annual rate (%)<input type="number" className="tool-input" value={r} onChange={(e) => setR(Number(e.target.value))} /></label><label className="tool-label">Time (years)<input type="number" className="tool-input" value={t} onChange={(e) => setT(Number(e.target.value))} /></label></div><div className="grid gap-3 sm:grid-cols-2"><Result label="Interest" value={interest.toLocaleString()} /><Result label="Maturity amount" value={(p + interest).toLocaleString()} /></div></div></Panel>;
-}
-
-function CompoundInterest() {
-  const [p, setP] = useState(100000);
-  const [r, setR] = useState(8);
-  const [t, setT] = useState(5);
-  const [n, setN] = useState(12);
-  const amount = p * Math.pow(1 + r / 100 / n, n * t);
-  const interest = amount - p;
-  return <Panel title="Compound interest"><div className="grid gap-5 lg:grid-cols-2"><div className="grid gap-4"><label className="tool-label">Principal<input type="number" className="tool-input" value={p} onChange={(e) => setP(Number(e.target.value))} /></label><label className="tool-label">Annual rate (%)<input type="number" className="tool-input" value={r} onChange={(e) => setR(Number(e.target.value))} /></label><label className="tool-label">Years<input type="number" className="tool-input" value={t} onChange={(e) => setT(Number(e.target.value))} /></label><label className="tool-label">Compounds per year<select className="tool-input" value={n} onChange={(e) => setN(Number(e.target.value))}><option value={1}>Yearly</option><option value={4}>Quarterly</option><option value={12}>Monthly</option><option value={365}>Daily</option></select></label></div><div className="grid gap-3 sm:grid-cols-2"><Result label="Interest earned" value={interest.toLocaleString(undefined,{maximumFractionDigits:2})} /><Result label="Final amount" value={amount.toLocaleString(undefined,{maximumFractionDigits:2})} /></div></div></Panel>;
-}
-
-function DiscountCalculator() {
-  const [price, setPrice] = useState(5000);
-  const [discount, setDiscount] = useState(20);
-  const saved = price * discount / 100;
-  return <Panel title="Discount calculator"><div className="grid gap-5 md:grid-cols-[0.8fr_1.2fr]"><div className="grid gap-4"><label className="tool-label">Original price<input type="number" className="tool-input" value={price} onChange={(e) => setPrice(Number(e.target.value))} /></label><label className="tool-label">Discount (%)<input type="number" className="tool-input" value={discount} onChange={(e) => setDiscount(Number(e.target.value))} /></label></div><div className="grid gap-3 sm:grid-cols-2"><Result label="You save" value={saved.toLocaleString()} /><Result label="Final price" value={(price - saved).toLocaleString()} /></div></div></Panel>;
-}
-
 function BSNotice() {
-  return <p className="mt-3 text-xs leading-5 text-slate-500 dark:text-slate-400">Supported range: 1978–2099 BS / 1921–2040 AD. Validate critical dates before production use.</p>;
+  return <p className="mt-3 text-xs leading-5 text-slate-500 dark:text-slate-400">Supported range: 1978–2099 BS / 1921–2040 AD. Dashain, Tihar, Holi, Teej, Buddha Jayanti, Maha Shivaratri and Eid dates follow lunar calendars and vary yearly.</p>;
 }
 
 function BSFields({ year, month, day, onYear, onMonth, onDay }: { year: number; month: number; day: number; onYear: (v:number)=>void; onMonth:(v:number)=>void; onDay:(v:number)=>void }) {
@@ -292,7 +267,9 @@ function NepaliCalendar() {
   const [year,setYear]=useState(2083),[month,setMonth]=useState(4);
   const calendar=buildBSMonth(year,month);
   const blanks=calendar?Array.from({length:calendar.startWeekday}):[];
-  return <Panel title="Nepali calendar month"><BSNotice/><div className="mt-4 grid max-w-md gap-3 sm:grid-cols-2"><label className="tool-label">BS year<input type="number" className="tool-input" value={year} onChange={(e)=>setYear(Number(e.target.value))}/></label><label className="tool-label">Month<select className="tool-input" value={month} onChange={(e)=>setMonth(Number(e.target.value))}>{BS_MONTHS.map((name,i)=><option key={name} value={i+1}>{name}</option>)}</select></label></div>{calendar?<div className="mt-7 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800"><div className="bg-slate-950 px-5 py-4 text-center text-lg font-black text-white">{calendar.monthName} {year}</div><div className="grid grid-cols-7 bg-slate-50 text-center text-xs font-black text-slate-500 dark:bg-slate-900 dark:text-slate-400">{["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d=><div key={d} className="p-3">{d}</div>)}</div><div className="grid grid-cols-7">{blanks.map((_,i)=><div key={`blank-${i}`} className="min-h-20 border-t border-r border-slate-100 dark:border-slate-800"/>)}{calendar.cells.map(cell=><div key={cell.bs.day} className="min-h-20 border-t border-r border-slate-100 p-2 dark:border-slate-800"><p className="font-black text-slate-950 dark:text-white">{cell.bs.day}</p><p className="mt-1 text-[10px] text-slate-400">{formatAD(cell.ad)}</p></div>)}</div></div>:<div className="mt-5"><ErrorBox message="Could not build this BS month. Check that the year is inside the supported conversion range."/></div>}</Panel>;
+  const today = new Date();
+  const todayAD = formatAD(new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(), 12)));
+  return <Panel title="Nepali calendar month" description="Dates are converted from Bikram Sambat. Observance names below use fixed official dates and well-established calendar facts; lunar festivals change date each year."><BSNotice/><div className="mt-4 grid max-w-md gap-3 sm:grid-cols-2"><label className="tool-label">BS year<input type="number" className="tool-input" value={year} onChange={(e)=>setYear(Number(e.target.value))}/></label><label className="tool-label">Month<select className="tool-input" value={month} onChange={(e)=>setMonth(Number(e.target.value))}>{BS_MONTHS.map((name,i)=><option key={name} value={i+1}>{name}</option>)}</select></label></div>{calendar?<><div className="mt-4 flex flex-wrap gap-3 text-xs font-bold text-slate-500 dark:text-slate-400"><span className="inline-flex items-center gap-2"><i className="size-3 rounded-full bg-accent-400"/> Today</span><span className="inline-flex items-center gap-2"><i className="size-3 rounded-full bg-brand-600"/> Holiday or observance</span></div><div className="mt-4 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800"><div className="bg-slate-950 px-5 py-4 text-center text-lg font-black text-white">{calendar.monthName} {year}</div><div className="grid grid-cols-7 bg-slate-50 text-center text-xs font-black text-slate-500 dark:bg-slate-900 dark:text-slate-400">{["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d=><div key={d} className="p-3">{d}</div>)}</div><div className="grid grid-cols-7">{blanks.map((_,i)=><div key={`blank-${i}`} className="min-h-20 border-t border-r border-slate-100 dark:border-slate-800"/>)}{calendar.cells.map(cell=>{const isToday = formatAD(cell.ad) === todayAD; return <div key={cell.bs.day} className={`min-h-20 border-t border-r border-slate-100 p-2 dark:border-slate-800 ${isToday ? "bg-accent-50 ring-2 ring-inset ring-accent-400 dark:bg-accent-500/10" : ""}`}><div className="flex items-start justify-between gap-1"><p className="font-black text-slate-950 dark:text-white">{cell.bs.day}</p>{isToday ? <span className="rounded-full bg-accent-400 px-1.5 py-0.5 text-[9px] font-black text-slate-950">TODAY</span> : null}</div><p className="mt-1 text-[10px] text-slate-400">{formatAD(cell.ad)}</p>{cell.observances.map((observance)=><p key={observance.name} title={observance.note} className="mt-1 truncate text-[10px] font-black text-brand-700 dark:text-accent-300">{observance.name}</p>)}</div>})}</div></div><div className="mt-5 grid gap-2">{calendar.cells.flatMap((cell)=>cell.observances.map((observance)=><p key={`${cell.bs.day}-${observance.name}`} className="rounded-xl bg-slate-50 px-3 py-2 text-xs text-slate-600 dark:bg-slate-900 dark:text-slate-300"><strong>{cell.bs.day} {calendar.monthName}:</strong> {observance.name} — {observance.note}</p>))}</div></>:<div className="mt-5"><ErrorBox message="Could not build this BS month. Check that the year is inside the supported conversion range."/></div>}</Panel>;
 }
 
 export function ToolWorkspace({ slug }: { slug: string }) {
@@ -306,9 +283,6 @@ export function ToolWorkspace({ slug }: { slug: string }) {
     case "emi-calculator": return <EMICalculator />;
     case "percentage-calculator": return <PercentageCalculator />;
     case "age-calculator": return <AgeCalculator />;
-    case "simple-interest": return <SimpleInterest />;
-    case "compound-interest": return <CompoundInterest />;
-    case "discount-calculator": return <DiscountCalculator />;
     case "bs-ad-converter": return <BSADConverter />;
     case "nepali-today": return <NepaliToday />;
     case "bs-date-difference": return <BSDateDifference />;
