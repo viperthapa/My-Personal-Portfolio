@@ -59,8 +59,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-slate-50/85 backdrop-blur-xl dark:border-slate-800/70 dark:bg-[#060b16]/85">
       <div className="container-shell flex h-16 items-center justify-between gap-5">
-        <Link href="/" className="flex items-center gap-2 font-black tracking-tight text-slate-950 dark:text-white">
-          <Code2 className="text-brand-600 dark:text-accent-400" size={24} />
+         <Link href="/" className="flex items-center gap-2 font-black tracking-tight text-slate-950 dark:text-white">
+           <Code2 className="text-brand-600 dark:text-accent-400" size={24} />
           <span>{siteConfig.name}</span>
         </Link>
 
@@ -71,7 +71,7 @@ export function Header() {
               href={link.href}
                onClick={() => setActiveSection(link.section)}
               aria-current={isActive(link.section) ? "page" : undefined}
-              className={`text-sm font-semibold transition hover:text-brand-600 dark:hover:text-accent-400 ${link.section === "learn" ? "ml-2 border-l border-slate-200 pl-5 dark:border-slate-700" : ""} ${isActive(link.section) ? "text-brand-600 dark:text-accent-400" : "text-slate-600 dark:text-slate-300"}`}
+                className={`text-sm font-semibold transition hover:text-brand-600 dark:hover:text-accent-400 ${link.section === "learn" ? "ml-2 border-l border-slate-200 pl-5 dark:border-slate-700" : ""} ${isActive(link.section) ? "text-brand-600 dark:text-accent-400" : "text-slate-600 dark:text-slate-300"}`}
             >
               {link.label}
             </Link>
@@ -84,11 +84,11 @@ export function Header() {
 
         <div className="flex items-center gap-2 xl:hidden">
           <ThemeToggle />
-          <button
+           <button
             type="button"
             aria-label="Toggle menu"
             onClick={() => setOpen((value) => !value)}
-            className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900"
+             className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900"
           >
             {open ? <X size={19} /> : <Menu size={19} />}
           </button>
@@ -96,7 +96,7 @@ export function Header() {
       </div>
 
       {open ? (
-        <div className="border-t border-slate-200 bg-white p-4 xl:hidden dark:border-slate-800 dark:bg-slate-950">
+         <div className="border-t border-slate-200 bg-white p-4 xl:hidden dark:border-slate-800 dark:bg-slate-950">
           <div className="container-shell grid gap-2">
             {links.map((link) => (
               <Link
@@ -107,7 +107,7 @@ export function Header() {
                    setActiveSection(link.section);
                 }}
                 aria-current={isActive(link.section) ? "page" : undefined}
-                className={`rounded-xl px-4 py-3 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 ${link.section === "learn" ? "mt-2 border-t border-slate-200 pt-5 dark:border-slate-800" : ""} ${isActive(link.section) ? "bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-accent-400" : "text-slate-700 dark:text-slate-200"}`}
+                 className={`rounded-xl px-4 py-3 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-900 ${link.section === "learn" ? "mt-2 border-t border-slate-200 pt-5 dark:border-slate-800" : ""} ${isActive(link.section) ? "bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-accent-400" : "text-slate-700 dark:text-slate-200"}`}
               >
                 {link.label}
               </Link>

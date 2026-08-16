@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { CourseCard } from "@/components/learn/course-card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { courses } from "@/data/courses";
+import Link from "next/link";
+import { ArrowRight, Network } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Learning Hub",
-  description: "Beginner-friendly Python, JavaScript and Docker learning tracks with lessons and quizzes.",
+  description: "Beginner-friendly learning tracks with short lessons, visual system design concepts, and quizzes.",
 };
 
 export default function LearnPage() {
@@ -21,9 +23,14 @@ export default function LearnPage() {
           </div>
         </div>
         <SectionHeading eyebrow="Courses" title="Choose a learning path" description="Each course uses the same reusable lesson and quiz system, making it easy to add React, Git, SQL, Linux or other topics later." />
-        <div className="grid gap-5 lg:grid-cols-3">
+        <div className="mb-5 grid gap-5 lg:grid-cols-3">
           {courses.map((course) => <CourseCard key={course.slug} course={course} />)}
         </div>
+        <Link href="/learn/system-design" className="surface group flex flex-col gap-6 rounded-3xl p-6 transition hover:-translate-y-1 hover:border-teal-300 sm:flex-row sm:items-center sm:p-7">
+          <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-teal-50 text-teal-700 dark:bg-teal-500/10 dark:text-accent-400"><Network size={26} /></div>
+          <div className="flex-1"><p className="text-xs font-black uppercase tracking-[0.16em] text-teal-700 dark:text-accent-400">Visual course</p><h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">System Design</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300">Understand scalability, databases, distributed systems, and architecture trade-offs through 24 one-minute lessons.</p></div>
+          <span className="inline-flex items-center gap-2 text-sm font-black text-teal-700 dark:text-accent-400">Explore 24 topics <ArrowRight size={16} /></span>
+        </Link>
       </div>
     </div>
   );
